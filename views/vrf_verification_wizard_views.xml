@@ -1,0 +1,36 @@
+<openerp>
+  <data>
+    <record id="VRF Verification Wizard" model="ir.ui.view">
+      <field name="name">VRF Verification Wizard</field>
+      <field name="model">sparkit.vrf_verification_wizard</field>
+      <field name="arch" type="xml">
+        <form>
+          <div class="oe_right">
+            <button type="object" name="do_populate_tasks" string="Get All"/>
+          </div>
+          <field name="vrf_ids"/>
+          <group>
+            <field name="verified"/>
+          </group>
+          <footer>
+              <button type="object" name="do_mass_update" string="Mass
+                Update" class="oe_highlight" />
+              <button special="cancel" string="Cancel"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <act_window id="action_vrf_verification_wizard"
+      name="VRF Verification"
+      src_model="sparkit.vrf"
+      res_model="sparkit.vrf_verification_wizard" view_mode="form" target="new"
+      multi="True"/>
+
+    <menuitem id="vrf_verification_wizard" name="VRF Verification"
+      action="action_vrf_verification_wizard"
+      parent="sparkit.main_visit_reports_menu" sequence="1"
+      groups="sparkit.m_e_user"/>
+
+  </data>
+ </openerp>
