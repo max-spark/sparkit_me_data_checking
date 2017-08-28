@@ -8,7 +8,7 @@ class sparkit_me_data_checking(models.TransientModel):
 
     vrf_ids = fields.Many2many('sparkit.vrf', string="Visit Report Forms")
 
-    verified = fields.Boolean(string="Visit Report Form Verified?")
+    verified = fields.Boolean(string="Visit Report Form Verified and Attendance Information Entered?")
 
     @api.multi
     def do_mass_update(self):
@@ -31,7 +31,7 @@ class sparkit_me_data_checking(models.TransientModel):
     def do_populate_tasks(self):
         self.ensure_one()
         VRF = self.env['sparkit.vrf']
-        all_vrfs = VRF.search([('state', '!=', 'approved'), ('m_e_assistant_id', '=', self.env.uid)])
+        all_vrfs = VRF.search([('state', '!=', 'approved'), ('state', '!=', 'cancelled'), ('m_e_assistant_id', '=', self.env.uid)])
         self.vrf_ids = all_vrfs
         # reopen wizard form on same wizard record
         return self.do_reopen_form()
